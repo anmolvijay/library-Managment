@@ -1,0 +1,86 @@
+<template>
+   
+    <lightning-card title="Reader Details" >
+       
+        <lightning-avatar size="medium"  src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg" initials="RE" fallback-icon-name="standard:person_account" 
+        alternative-text="Ryan Eddie" class="slds-m-right_small"></lightning-avatar>
+        <div class="tableDiv">
+            <div class={tableStyle}>
+                <table aria-describedby="customer-list" class="slds-table  slds-table_bordered ">
+
+                    <!--Header of the table-->
+                    <thead>
+                        <tr class="slds-line-height_reset">
+            
+                            <th class="slds-size_1-of-6" scope="col">
+                                <div class="slds-truncate " title="Reader Name">Reader Name</div>
+                            </th>
+                            <th class="slds-size_1-of-6" scope="col">
+                                <div class="slds-truncate " title=" total issued books"> Total Issued Books</div>
+                            </th>
+                            <th class="slds-size_1-of-6" scope="col">
+                                <div class="slds-truncate " title="From">Overdue Books</div>
+                            </th>
+                        </tr>
+                    </thead>
+               
+                        <!--Body of the table-->
+                        <tbody>
+                            <template for:each={readerInfo} for:item="item" for:index="index" >
+                                
+                                <tr key={item.ID}>
+                                      
+                                    <td class="slds-size_1-of-6" >
+                                        <div >
+                                                {item.Name}
+                                        </div>
+                                    </td>
+                                    <td class="slds-size_1-of-6">
+                                        <div>
+                                                {item.Total_Issued_Book__c}
+                                        </div>
+                                    </td>
+                                    <td class="slds-size_1-of-6">
+                                        <div>
+                                            <template for:each={item.Issues__r} for:item="issueItem" for:index="index" >
+                                                <template if:true={issueItem.overDueBook}>
+                                                    <tr key={issueItem.Book__r.Id}>
+                                                        <td style="text-decoration-style: none;">
+                                                            {issueItem.Book__r.Name}
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </template>
+                                                
+                                        </div>
+                                    </td>
+                                   
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+       
+            <div class="page-info">
+                Displaying {startingRecord} to {endingRecord} of {totalRecountCount} records.
+                Page {page} of {totalPage}.
+                
+              </div>
+                
+              
+                <lightning-layout>
+                    <lightning-layout-item>
+                        <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler} disabled={disablePrev} ></lightning-button>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="grow"></lightning-layout-item>
+                    <lightning-layout-item>
+                        <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right" onclick={nextHandler} disabled={disableNext}></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+            
+        
+           
+    </lightning-card>
+   
+</template>

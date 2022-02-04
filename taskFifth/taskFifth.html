@@ -1,0 +1,30 @@
+<template>
+    <lightning-card>
+    <lightning-tabset active-tab-value={tabvalue}>
+        <lightning-tab label="Search Books"  onactive={handelactive} value = "1">
+           
+            <c-task-second onprogressvaluechange ={secondvalueid}></c-task-second>
+        </lightning-tab>
+        <lightning-tab label=" Add Books" value = "2">
+           
+           <c-book-task-l-w-c ></c-book-task-l-w-c  >
+           
+    </lightning-tab>
+    <lightning-tab label="Book Info" value = "3">
+    
+        <c-new-third bookrecord ={bookrecID} onprogressvaluechange ={thirdissue} ></c-new-third>
+    </lightning-tab>
+        <lightning-tab label="Issue Books" value = "4">
+            Issue Books
+            <c-taskfourth-cmp issuebookrecord ={issueName}  ></c-taskfourth-cmp>
+        </lightning-tab>
+        <lightning-tab label="List of Issued Books" value = "5">
+           
+            <c-task-sixth onprogressvalueforsixth ={sixthreturn} ></c-task-sixth>
+        </lightning-tab>
+        <lightning-tab label="Reader Details" value = "6">
+            <c-task-seven></c-task-seven>
+        </lightning-tab>
+    </lightning-tabset>
+</lightning-card>
+</template>

@@ -1,0 +1,116 @@
+<template>
+   
+<lightning-card> 
+    <h1>  Library Record  </h1>
+    <div class="slds-m-top_medium slds-m-bottom_x-large">
+    <lightning-button label="Book Name"  onclick={handleClick} slot="actions"
+    class="slds-m-left_x-small">Book Name</lightning-button>
+    <lightning-button label="ISBN Number"  onclick={handleClick} slot="actions"
+    class="slds-m-left_x-small">ISBN Number</lightning-button>
+    <lightning-button label="Author"  onclick={handleClick} slot="actions"
+    class="slds-m-left_x-small">Author</lightning-button>
+</div>
+
+
+<lightning-input type= "search" onchange={search} label = "Search" placeholder="Search Book Here" 
+class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols" value ={bookName}></lightning-input>
+
+<br>
+</br>
+<lightning-combobox
+name="pazeSize"
+label="Number Of Record"
+value={value}
+options={options}
+onchange={comboChange}
+style="color:grey;width:150px;">
+</lightning-combobox>
+
+<br></br>
+<template if:true={renderTable}>
+        <div class="tableDiv">
+        <div class={tableStyle}>
+        <table aria-describedby="conatact-list" class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols">
+        
+        <!--Header of the table-->
+       
+        <thead>
+        <tr class="slds-line-height_reset">
+        <th class="slds-size_1-of-6" scope="col">
+        <div class="slds-truncate " title="Book Name">Book Name</div>
+        </th>
+        <th class="slds-size_1-of-6" scope="col">
+        <div class="slds-truncate " title="ISBN Number">ISBN Number</div>
+        </th>
+        <th class="slds-size_1-of-6" scope="col">
+        <div class="slds-truncate " title="Author ">Author</div>
+        </th>
+        
+        <th class="slds-size_1-of-6" scope="col">
+        <div class="slds-truncate " title="Number of Available Book">Number Of Free Book</div>
+        </th>
+        <th class="slds-size_1-of-6" scope="col">
+        <div class="slds-truncate " title="Number of Issued Book">Number Of Issued Book</div>
+        </th>
+        </tr>
+        </thead>
+        
+        <!--Body of the table-->
+        <tbody>
+        <template for:each={BookList} for:item="item" for:index="index">
+        
+        <tr key={item.Id} class="slds-hint-parent">
+        <td class="slds-size_1-of-6">
+            <lightning-button  slot="actions" onclick={showReaderComponent}  label={item.Name} 
+            variant="base"  data-recid={item.Id} accesskey={index} ></lightning-button>
+            
+        </td>
+        <td class="slds-size_1-of-6">
+        <div>
+        {item.ISBN_Number__c}
+        </div>
+        </td>
+        <td class="slds-size_1-of-6">
+        <div>
+        {item.Author__c}
+        </div>
+        </td>
+        
+        <td class="slds-size_1-of-6">
+        <div>
+        {item.Number_Of_Free_Book__c}
+        
+        </div>
+        </td>
+        <td class="slds-size_1-of-6">
+        <div>
+        {item.Number_of_Issued_Books__c}
+        </div>
+        </td>
+        </tr>
+        </template>
+        </tbody>
+        </table>
+        </div>
+        </div>
+        <div class="page-info">
+            Displaying {startingRecord} to {endingRecord} of {totalRecountCount} records.
+            
+            </div>
+            <lightning-layout>
+            <lightning-layout-item>
+            <lightning-button label="Previous" icon-name="utility:chevronleft" 
+            onclick={previousHandler} disabled={disablePrev} ></lightning-button>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="grow"></lightning-layout-item>
+            <lightning-layout-item>
+            <lightning-button label="Next" icon-name="utility:chevronright" 
+            icon-position="right" onclick={nextHandler} disabled={disableNext}></lightning-button>
+            </lightning-layout-item>
+            </lightning-layout>
+</template>
+</lightning-card> 
+<template if:true={readerVisible}>
+<!--c-new-third issuebookrecord ={bookRecordId}></c-new-third-->
+</template>
+</template>
